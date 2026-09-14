@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rowida Hany — Full Stack .NET Developer</title>
+<meta name="description" content="Rowida Hany, Computer Science student and aspiring Full Stack .NET Developer based in Cairo, Egypt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fraunces:'Fraunces',serif;
+    --plex:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+    --cairo:'Cairo',sans-serif;
+
+    --radius-s:6px;
+    --radius-m:10px;
+    --radius-l:16px;
+
+    --space-1:.25rem;
+    --space-2:.5rem;
+    --space-3:.75rem;
+    --space-4:1rem;
+    --space-5:1.5rem;
+    --space-6:2rem;
+    --space-7:3rem;
+    --space-8:4.5rem;
+    --space-9:6.5rem;
+
+    --fs-100:.8125rem;
+    --fs-200:.9375rem;
+    --fs-300:1.0625rem;
+    --fs-400:1.25rem;
+    --fs-500:1.625rem;
+    --fs-600:2rem;
+    --fs-700:2.75rem;
+    --fs-800:clamp(2.75rem,6vw,4.25rem);
+
+    --max-w:1180px;
+    --border-w:1px;
+  }
+
+  html[data-theme="dark"]{
+    --bg:#0A0E1A;
+    --bg-alt:#0F1420;
+    --surface:#131A2B;
+    --surface-2:#182034;
+    --border:#232B40;
+    --text:#EAF0F7;
+    --text-muted:#8B96AB;
+    --text-faint:#5C6478;
+    --accent:#22D3EE;
+    --accent-strong:#4BE0F5;
+    --accent-ink:#0E2630;
+    --gold:#8B5CF6;
+    --shadow: 0 20px 60px -25px rgba(0,0,0,.7);
+  }
+  html[data-theme="light"]{
+    --bg:#F5F7FA;
+    --bg-alt:#EDF1F5;
+    --surface:#FFFFFF;
+    --surface-2:#EFF3F7;
+    --border:#DDE3EA;
+    --text:#101422;
+    --text-muted:#54607A;
+    --text-faint:#8792A8;
+    --accent:#0EA5C4;
+    --accent-strong:#0B87A1;
+    --accent-ink:#E3F7FB;
+    --gold:#6D3FE0;
+    --shadow: 0 20px 50px -28px rgba(20,30,60,.2);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--plex);
+    font-size:var(--fs-300);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;
+  }
+  html[lang="ar"] body{ font-family:var(--cairo); }
+  html[lang="ar"] .headline, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] .code-tab-label{
+    font-family:var(--cairo);
+  }
+
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+  h1,h2,h3{font-family:var(--fraunces);margin:0;font-weight:600;letter-spacing:-0.01em;}
+  p{margin:0;}
+
+  .wrap{max-width:var(--max-w);margin-inline:auto;padding-inline:var(--space-5);}
+
+  @media (min-width:720px){ .wrap{padding-inline:var(--space-7);} }
+
+  /* ---------- lang switching ---------- */
+  html[lang="en"] [data-lang="ar"]{display:none !important;}
+  html[lang="ar"] [data-lang="en"]{display:none !important;}
+  [data-lang="ar"]{direction:rtl;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:var(--border-w) solid var(--border);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-block:var(--space-4);
+    gap:var(--space-4);
+  }
+  .brand{display:flex;align-items:center;gap:var(--space-3);}
+  .brand-mark{
+    width:42px;height:42px;border-radius:var(--radius-m);
+    background:var(--surface-2);border:var(--border-w) solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:600;font-size:.8125rem;color:var(--accent);
+    flex-shrink:0;
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.2;}
+  .brand-name{font-family:var(--fraunces);font-weight:600;font-size:1.05rem;}
+  html[lang="ar"] .brand-name{font-family:var(--cairo);}
+  .brand-role{font-size:.75rem;color:var(--text-muted);font-family:var(--mono);}
+  html[lang="ar"] .brand-role{font-family:var(--cairo);}
+
+  .nav-links{display:none;align-items:center;gap:var(--space-6);}
+  .nav-links a{font-size:.9375rem;color:var(--text-muted);transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  @media (min-width:900px){ .nav-links{display:flex;} }
+
+  .nav-controls{display:flex;align-items:center;gap:var(--space-2);}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    border:var(--border-w) solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    background:var(--surface);color:var(--text-muted);
+    transition:border-color .15s, color .15s;
+  }
+  .icon-btn:hover{color:var(--text);border-color:var(--text-faint);}
+  .icon-btn svg{width:18px;height:18px;}
+  html[data-theme="dark"] .icon-sun{display:none;}
+  html[data-theme="light"] .icon-moon{display:none;}
+
+  .lang-btn{
+    height:38px;padding-inline:var(--space-4);border-radius:999px;
+    border:var(--border-w) solid var(--border);background:var(--surface);
+    font-size:.8125rem;font-weight:600;letter-spacing:.02em;color:var(--text-muted);
+    font-family:var(--mono);
+  }
+  .lang-btn:hover{color:var(--text);border-color:var(--text-faint);}
+
+  .menu-btn{display:flex;}
+  @media (min-width:900px){ .menu-btn{display:none;} }
+  .menu-btn svg{width:20px;height:20px;}
+
+  .mobile-panel{
+    display:none;flex-direction:column;gap:var(--space-1);
+    padding:var(--space-4) var(--space-5) var(--space-6);
+    border-bottom:var(--border-w) solid var(--border);
+    background:var(--bg);
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{padding-block:var(--space-3);color:var(--text-muted);font-size:1rem;border-bottom:var(--border-w) solid var(--border);}
+  .mobile-panel a:last-child{border-bottom:none;}
+  @media (min-width:900px){ .mobile-panel{display:none !important;} }
+
+  /* ---------- Hero ---------- */
+  .hero{padding-block:var(--space-8) var(--space-8);position:relative;overflow:hidden;}
+  .hero-grid{
+    display:grid;gap:var(--space-8);
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+  @media (min-width:980px){
+    .hero-grid{grid-template-columns:1.05fr .95fr;align-items:center;}
+  }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    padding:.5rem .9rem;border-radius:999px;
+    border:var(--border-w) solid var(--border);background:var(--surface);
+    font-family:var(--mono);font-size:.8125rem;color:var(--accent);
+    margin-bottom:var(--space-5);
+  }
+  html[lang="ar"] .eyebrow{font-family:var(--cairo);font-weight:600;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+
+  .headline{
+    font-size:var(--fs-800);
+    line-height:1.05;
+    margin-bottom:var(--space-5);
+  }
+  .headline .last{display:block;color:var(--text-muted);font-weight:500;font-size:.62em;margin-top:.3em;font-style:italic;}
+  html[lang="ar"] .headline .last{font-style:normal;}
+
+  .lead{
+    font-size:var(--fs-400);
+    color:var(--text-muted);
+    max-width:56ch;
+    margin-bottom:var(--space-6);
+  }
+  .lead b, .lead strong{color:var(--text);font-weight:600;}
+  .lead .tech{color:var(--accent);font-weight:600;}
+
+  .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+  .btn{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    padding:.85rem 1.4rem;border-radius:var(--radius-m);
+    font-size:.9375rem;font-weight:600;
+  }
+  .btn-primary{background:var(--accent);color:#fff;}
+  html[data-theme="light"] .btn-primary{color:#fff;}
+  .btn-primary:hover{background:var(--accent-strong);}
+  .btn-ghost{border:var(--border-w) solid var(--border);background:var(--surface);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--text-faint);}
+  .btn svg{width:16px;height:16px;}
+
+  .contact-chips{display:flex;flex-wrap:wrap;gap:var(--space-3);}
+  .chip{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    padding:.55rem .9rem;border-radius:var(--radius-m);
+    border:var(--border-w) solid var(--border);background:var(--surface);
+    font-size:.8125rem;color:var(--text-muted);
+  }
+  .chip svg{width:14px;height:14px;color:var(--text-faint);flex-shrink:0;}
+
+  /* ---------- code panel ---------- */
+  .code-panel{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow);
+    direction:ltr;text-align:left;
+  }
+  .code-tab{
+    display:flex;align-items:center;gap:var(--space-3);
+    padding:.85rem 1.1rem;border-bottom:var(--border-w) solid var(--border);
+    background:var(--bg-alt);
+  }
+  .code-dots{display:flex;gap:6px;flex-shrink:0;}
+  .code-dots span{width:10px;height:10px;border-radius:50%;}
+  .code-dots span:nth-child(1){background:#EE6A5F;}
+  .code-dots span:nth-child(2){background:#F4BF4F;}
+  .code-dots span:nth-child(3){background:#61C554;}
+  .code-tab-label{font-family:var(--mono);font-size:.8125rem;color:var(--text-muted);}
+  .code-body{padding:1.4rem 1.3rem;font-family:var(--mono);font-size:.84rem;line-height:1.75;overflow-x:auto;}
+  .code-body .c1{color:var(--text-faint);}
+  .code-body .kw{color:var(--accent);}
+  .code-body .ty{color:var(--gold);}
+  .code-body .st{color:#8FBF7F;}
+  html[data-theme="light"] .code-body .st{color:#3E7D3E;}
+  .code-body .pr{color:var(--text);}
+
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);margin-top:var(--space-5);}
+  .stat-card{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-m);padding:var(--space-4);
+  }
+  .stat-label{font-size:.75rem;color:var(--text-faint);margin-bottom:.35rem;}
+  .stat-value{font-family:var(--fraunces);font-size:1.4rem;color:var(--text);}
+  html[lang="ar"] .stat-value{font-family:var(--cairo);font-weight:700;}
+  .stat-sub{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;}
+
+  /* ---------- sections ---------- */
+  section{padding-block:var(--space-8);border-top:var(--border-w) solid var(--border);}
+  .section-head{margin-bottom:var(--space-6);max-width:64ch;}
+  .kicker{font-family:var(--mono);font-size:.75rem;color:var(--accent);margin-bottom:var(--space-2);display:block;}
+  html[lang="ar"] .kicker{font-family:var(--cairo);font-weight:700;}
+  .section-head h2{font-size:var(--fs-700);}
+  .section-sub{color:var(--text-muted);margin-top:var(--space-3);font-size:var(--fs-300);}
+
+  /* about */
+  .about-grid{display:grid;gap:var(--space-6);}
+  @media (min-width:820px){ .about-grid{grid-template-columns:1.4fr 1fr;} }
+  .about-text{font-size:var(--fs-400);color:var(--text-muted);max-width:62ch;}
+  .about-text b{color:var(--text);font-weight:600;}
+  .tag-list{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5);}
+  .tag{
+    padding:.45rem .85rem;border-radius:999px;font-size:.8125rem;
+    background:var(--surface-2);border:var(--border-w) solid var(--border);color:var(--text-muted);
+  }
+  .soft-card{background:var(--surface);border:var(--border-w) solid var(--border);border-radius:var(--radius-l);padding:var(--space-6);}
+  .soft-card h3{font-size:1.1rem;margin-bottom:var(--space-4);}
+
+  /* skills matrix */
+  .matrix{display:grid;gap:var(--space-4);grid-template-columns:1fr;}
+  @media (min-width:640px){ .matrix{grid-template-columns:1fr 1fr;} }
+  @media (min-width:1000px){ .matrix{grid-template-columns:1fr 1fr 1fr;} }
+  .matrix-card{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-l);padding:var(--space-5);
+  }
+  .matrix-card h3{font-size:1.05rem;margin-bottom:var(--space-4);display:flex;align-items:center;gap:var(--space-2);}
+  .matrix-card h3::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--gold);flex-shrink:0;}
+  .matrix-tags{display:flex;flex-wrap:wrap;gap:var(--space-2);}
+  .matrix-tags span{
+    font-family:var(--mono);font-size:.75rem;padding:.35rem .65rem;
+    border-radius:var(--radius-s);background:var(--surface-2);color:var(--text-muted);
+    border:var(--border-w) solid var(--border);
+  }
+  html[lang="ar"] .matrix-tags span{font-family:var(--cairo);}
+
+  /* projects */
+  .projects{display:grid;gap:var(--space-5);}
+  @media (min-width:820px){ .projects{grid-template-columns:1fr 1fr;} }
+  .project-card{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-l);padding:var(--space-6);
+    display:flex;flex-direction:column;gap:var(--space-4);
+  }
+  .project-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3);}
+  .project-card h3{font-size:1.35rem;}
+  .project-tag{
+    font-family:var(--mono);font-size:.75rem;color:var(--accent);
+    border:var(--border-w) solid var(--border);border-radius:999px;
+    padding:.3rem .7rem;flex-shrink:0;white-space:nowrap;
+  }
+  .project-list{display:flex;flex-direction:column;gap:var(--space-3);}
+  .project-list li{
+    display:flex;gap:var(--space-3);color:var(--text-muted);font-size:.9375rem;line-height:1.6;
+  }
+  .project-list li::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);
+    margin-top:.55em;flex-shrink:0;
+  }
+  html[dir="rtl"] .project-list li::before{margin-top:.6em;}
+  .project-foot{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:auto;padding-top:var(--space-3);border-top:var(--border-w) solid var(--border);}
+  .project-foot span{
+    font-size:.75rem;color:var(--text-faint);background:var(--surface-2);
+    border-radius:var(--radius-s);padding:.3rem .6rem;
+  }
+
+  /* education */
+  .edu-grid{display:grid;gap:var(--space-5);}
+  @media (min-width:820px){ .edu-grid{grid-template-columns:1fr 1fr;} }
+  .edu-card{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-l);padding:var(--space-6);
+    display:flex;gap:var(--space-4);align-items:flex-start;
+  }
+  .edu-icon{
+    width:46px;height:46px;border-radius:var(--radius-m);background:var(--accent-ink);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .edu-icon svg{width:22px;height:22px;color:var(--accent);}
+  .edu-card h3{font-size:1.15rem;margin-bottom:.35rem;}
+  .edu-card p{color:var(--text-muted);font-size:.9375rem;}
+  .edu-card .edu-place{font-size:.8125rem;color:var(--text-faint);margin-top:.4rem;}
+
+  /* activities */
+  .activity-list{display:grid;gap:var(--space-3);}
+  @media (min-width:820px){ .activity-list{grid-template-columns:1fr 1fr 1fr;} }
+  .activity-card{
+    background:var(--surface);border:var(--border-w) solid var(--border);
+    border-radius:var(--radius-m);padding:var(--space-5);
+  }
+  .activity-card .role{font-size:.75rem;color:var(--accent);font-family:var(--mono);margin-bottom:.4rem;display:block;}
+  html[lang="ar"] .activity-card .role{font-family:var(--cairo);font-weight:700;}
+  .activity-card h3{font-size:1rem;}
+
+  /* contact / footer */
+  .contact-inner{
+    display:flex;flex-direction:column;gap:var(--space-6);
+    align-items:flex-start;
+  }
+  @media (min-width:820px){
+    .contact-inner{flex-direction:row;justify-content:space-between;align-items:center;}
+  }
+  .contact-inner h2{font-size:var(--fs-700);max-width:18ch;}
+  .contact-line{color:var(--text-muted);font-size:var(--fs-400);max-width:48ch;margin-top:var(--space-3);}
+  .contact-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);}
+
+  footer{
+    border-top:var(--border-w) solid var(--border);
+    padding-block:var(--space-6);
+  }
+  .footer-inner{
+    display:flex;flex-direction:column;gap:var(--space-3);
+    font-size:.8125rem;color:var(--text-faint);
+  }
+  @media (min-width:820px){
+    .footer-inner{flex-direction:row;justify-content:space-between;align-items:center;}
+  }
+  .footer-inner span.tag-mono{font-family:var(--mono);}
+  html[lang="ar"] .footer-inner span.tag-mono{font-family:var(--cairo);}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">{RH}</div>
+      <div class="brand-text">
+        <span class="brand-name" data-lang="en">Rowida Hany</span>
+        <span class="brand-name" data-lang="ar">روضة هاني</span>
+        <span class="brand-role" data-lang="en">.NET Developer</span>
+        <span class="brand-role" data-lang="ar">مطوّرة .NET</span>
+      </div>
+    </div>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about" data-lang="en">About</a>
+      <a href="#about" data-lang="ar">نبذة</a>
+      <a href="#skills" data-lang="en">Skills</a>
+      <a href="#skills" data-lang="ar">المهارات</a>
+      <a href="#projects" data-lang="en">Projects</a>
+      <a href="#projects" data-lang="ar">المشاريع</a>
+      <a href="#education" data-lang="en">Education</a>
+      <a href="#education" data-lang="ar">التعليم</a>
+      <a href="#contact" data-lang="en">Contact</a>
+      <a href="#contact" data-lang="ar">تواصل</a>
+    </nav>
+
+    <div class="nav-controls">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark and light mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+      </button>
+      <button class="lang-btn" id="langToggle">
+        <span data-lang="en">العربية</span>
+        <span data-lang="ar">EN</span>
+      </button>
+      <button class="icon-btn menu-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#about" data-lang="en">About</a><a href="#about" data-lang="ar">نبذة</a>
+    <a href="#skills" data-lang="en">Skills</a><a href="#skills" data-lang="ar">المهارات</a>
+    <a href="#projects" data-lang="en">Projects</a><a href="#projects" data-lang="ar">المشاريع</a>
+    <a href="#education" data-lang="en">Education</a><a href="#education" data-lang="ar">التعليم</a>
+    <a href="#contact" data-lang="en">Contact</a><a href="#contact" data-lang="ar">تواصل</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-lang="en">Computer Science Student · Aspiring .NET Developer</span>
+          <span data-lang="ar">طالبة علوم حاسب · تتطلع لتكون مطوّرة .NET</span>
+        </span>
+
+        <h1 class="headline">
+          <span data-lang="en">Hi, I&rsquo;m<span class="last">Rowida Hany</span></span>
+          <span data-lang="ar">مرحبًا، أنا<span class="last">روضة هاني</span></span>
+        </h1>
+
+        <p class="lead" data-lang="en">
+          Full Stack <span class="tech">.NET</span> developer in training, building scalable, maintainable
+          applications with <span class="tech">C#</span>, <span class="tech">ASP.NET Core</span> and
+          <span class="tech">REST APIs</span> &mdash; grounded in object-oriented design, data structures,
+          and real, working management systems.
+        </p>
+        <p class="lead" data-lang="ar">
+          مطوّرة Full Stack بتقنية <span class="tech">.NET</span> قيد التأهيل، تبني تطبيقات قابلة للتوسّع
+          والصيانة باستخدام <span class="tech">#C</span> و<span class="tech">ASP.NET Core</span>
+          وواجهات <span class="tech">REST</span> &mdash; بأساس متين في البرمجة الكائنية التوجه، وهياكل
+          البيانات، وأنظمة إدارة حقيقية.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="Rowida-Hany-CV.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            <span data-lang="en">Download CV</span>
+            <span data-lang="ar">تحميل السيرة الذاتية</span>
+          </a>
+          <a class="btn btn-ghost" href="#projects">
+            <span data-lang="en">View Projects</span>
+            <span data-lang="ar">عرض المشاريع</span>
+          </a>
+        </div>
+
+        <div class="contact-chips">
+          <span class="chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-lang="en">Cairo, Egypt</span>
+            <span data-lang="ar">القاهرة، مصر</span>
+          </span>
+          <a class="chip" href="mailto:rowidahany084@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+            <span>rowidahany084@gmail.com</span>
+          </a>
+          <a class="chip" href="https://www.linkedin.com/in/rowida-hany" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 102.48 6a2.5 2.5 0 002.5-2.5zM2.9 8.75h4.16V21H2.9V8.75zM9.5 8.75h3.99v1.68h.06c.56-1.02 1.92-2.1 3.95-2.1 4.22 0 5 2.62 5 6.03V21h-4.15v-5.86c0-1.4-.03-3.2-1.95-3.2-1.96 0-2.26 1.5-2.26 3.1V21H9.5V8.75z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a class="chip" href="https://github.com/rowida084" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.19c0 4.49 2.87 8.3 6.84 9.65.5.1.68-.22.68-.49 0-.24-.01-1.03-.01-1.87-2.78.61-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.94-2.35 4.8-4.58 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.02 10.02 0 0022 12.19C22 6.58 17.52 2 12 2z"/></svg>
+            <span>GitHub</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="code-panel">
+          <div class="code-tab">
+            <div class="code-dots"><span></span><span></span><span></span></div>
+            <span class="code-tab-label">RowidaHany.cs</span>
+          </div>
+          <pre class="code-body"><span class="c1">// Core profile, straight from the source</span>
+<span class="kw">public class</span> <span class="ty">RowidaHany</span>
+{
+    <span class="kw">public string</span> <span class="pr">Name</span> = <span class="st">"Rowida Hany"</span>;
+    <span class="kw">public string</span> <span class="pr">Focus</span> = <span class="st">"Full Stack .NET Developer"</span>;
+    <span class="kw">public string</span> <span class="pr">University</span> = <span class="st">"Ain Shams University"</span>;
+    <span class="kw">public string</span> <span class="pr">Major</span> = <span class="st">"Computer Science"</span>;
+
+    <span class="kw">public</span> List&lt;<span class="kw">string</span>&gt; <span class="pr">CoreSkills</span> = <span class="kw">new</span>()
+    {
+        <span class="st">"C#"</span>, <span class="st">"ASP.NET Core"</span>, <span class="st">"REST APIs"</span>, <span class="st">"SQL"</span>
+    };
+
+    <span class="kw">public</span> List&lt;<span class="kw">string</span>&gt; <span class="pr">Concepts</span> = <span class="kw">new</span>()
+    {
+        <span class="st">"OOP"</span>, <span class="st">"Collections"</span>, <span class="st">"Delegates"</span>,
+        <span class="st">"Events"</span>, <span class="st">"Generics"</span>
+    };
+}</pre>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-label" data-lang="en">Employee Mgmt System</div>
+            <div class="stat-label" data-lang="ar">نظام إدارة الموظفين</div>
+            <div class="stat-value">5 <span data-lang="en" style="font-size:.6em;color:var(--text-muted);">Collections</span><span data-lang="ar" style="font-size:.55em;color:var(--text-muted);">مجموعات</span></div>
+            <div class="stat-sub" data-lang="en">Used to organize employee data</div>
+            <div class="stat-sub" data-lang="ar">لتنظيم بيانات الموظفين</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label" data-lang="en">Built From Scratch</div>
+            <div class="stat-label" data-lang="ar">مبنية من الصفر</div>
+            <div class="stat-value"><span data-lang="en">2 Systems</span><span data-lang="ar">نظامان</span></div>
+            <div class="stat-sub" data-lang="en">Employee &amp; Library management</div>
+            <div class="stat-sub" data-lang="ar">إدارة الموظفين والمكتبة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <div class="section-head">
+          <span class="kicker" data-lang="en">01 — About</span>
+          <span class="kicker" data-lang="ar">01 — نبذة عني</span>
+          <h2 data-lang="en">A student who builds real, working systems</h2>
+          <h2 data-lang="ar">طالبة تبني أنظمة حقيقية وقابلة للتشغيل</h2>
+        </div>
+        <p class="about-text" data-lang="en">
+          <b>Rowida</b> is a Computer Science student at Ain Shams University and an aspiring
+          Full Stack .NET Developer, interested in building scalable and maintainable applications
+          across the .NET ecosystem. Her project work applies software engineering fundamentals
+          &mdash; collections, delegates, events, and generic programming &mdash; to management
+          systems that actually run.
+        </p>
+        <p class="about-text" data-lang="ar">
+          <b>روضة</b> طالبة في قسم علوم الحاسب بجامعة عين شمس، وتتطلع لتكون مطوّرة Full Stack
+          باستخدام تقنيات .NET. تهتم ببناء تطبيقات قابلة للتوسّع والصيانة ضمن منظومة .NET، وقد طبّقت
+          في مشاريعها مفاهيم أساسية في هندسة البرمجيات &mdash; مثل المجموعات، والمفوّضات، والأحداث،
+          والبرمجة العامة &mdash; على أنظمة إدارة تعمل فعليًا.
+        </p>
+      </div>
+
+      <div class="soft-card">
+        <h3 data-lang="en">Beyond the syntax</h3>
+        <h3 data-lang="ar">إلى جانب الكود</h3>
+        <div class="tag-list">
+          <span class="tag" data-lang="en">Problem Solving</span>
+          <span class="tag" data-lang="ar">حل المشكلات</span>
+          <span class="tag" data-lang="en">Communication</span>
+          <span class="tag" data-lang="ar">التواصل</span>
+          <span class="tag" data-lang="en">Teamwork</span>
+          <span class="tag" data-lang="ar">العمل الجماعي</span>
+          <span class="tag" data-lang="en">Adaptability</span>
+          <span class="tag" data-lang="ar">القدرة على التكيّف</span>
+          <span class="tag" data-lang="en">Continuous Learning</span>
+          <span class="tag" data-lang="ar">التعلّم المستمر</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS MATRIX -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" data-lang="en">02 — Skills Matrix</span>
+        <span class="kicker" data-lang="ar">02 — مصفوفة المهارات</span>
+        <h2 data-lang="en">Organized by where it's used</h2>
+        <h2 data-lang="ar">مرتّبة حسب مجال الاستخدام</h2>
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-card">
+          <h3 data-lang="en">Programming Languages</h3>
+          <h3 data-lang="ar">لغات البرمجة</h3>
+          <div class="matrix-tags">
+            <span>C#</span><span>C++</span><span>Python</span><span>JavaScript</span>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <h3 data-lang="en">Backend</h3>
+          <h3 data-lang="ar">الخلفية البرمجية</h3>
+          <div class="matrix-tags">
+            <span>.NET</span><span>ASP.NET Core</span><span>REST APIs</span>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <h3 data-lang="en">Database</h3>
+          <h3 data-lang="ar">قواعد البيانات</h3>
+          <div class="matrix-tags">
+            <span>SQL</span><span>Oracle</span>
+            <span data-lang="en">Database Design</span>
+            <span data-lang="ar">تصميم قواعد البيانات</span>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <h3 data-lang="en">Concepts</h3>
+          <h3 data-lang="ar">المفاهيم</h3>
+          <div class="matrix-tags">
+            <span>OOP</span><span data-lang="en">Data Structures</span><span data-lang="ar">هياكل البيانات</span>
+            <span data-lang="en">Algorithms</span><span data-lang="ar">الخوارزميات</span>
+            <span>Collections</span><span>Delegates</span><span>Events</span><span>Generics</span><span>LINQ</span>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <h3 data-lang="en">Frontend</h3>
+          <h3 data-lang="ar">الواجهة الأمامية</h3>
+          <div class="matrix-tags">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <h3 data-lang="en">Tools</h3>
+          <h3 data-lang="ar">الأدوات</h3>
+          <div class="matrix-tags">
+            <span>Git</span><span>GitHub</span><span>Visual Studio</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" data-lang="en">03 — Projects</span>
+        <span class="kicker" data-lang="ar">03 — المشاريع</span>
+        <h2 data-lang="en">Two systems, built end to end</h2>
+        <h2 data-lang="ar">نظامان مبنيان من الصفر إلى الاحتراف</h2>
+      </div>
+
+      <div class="projects">
+        <article class="project-card">
+          <div class="project-top">
+            <h3 data-lang="en">Employee Management System</h3>
+            <h3 data-lang="ar">نظام إدارة الموظفين</h3>
+            <span class="project-tag">C#</span>
+          </div>
+          <ul class="project-list">
+            <li data-lang="en">Developed an employee management system using C#</li>
+            <li data-lang="ar">تطوير نظام لإدارة الموظفين باستخدام لغة #C</li>
+            <li data-lang="en">Applied five different collections to manage and organize employee data</li>
+            <li data-lang="ar">تطبيق خمس مجموعات مختلفة لتنظيم بيانات الموظفين وإدارتها</li>
+            <li data-lang="en">Implemented a generic <code>Result&lt;T&gt;</code> type for handling operation results</li>
+            <li data-lang="ar">تنفيذ نوع عام <code>Result&lt;T&gt;</code> للتعامل مع نتائج العمليات</li>
+            <li data-lang="en">Used custom filtering delegates and events for flexible, event-driven functionality</li>
+            <li data-lang="ar">استخدام مفوّضات وأحداث مخصّصة لتصفية مرنة ووظائف مبنية على الأحداث</li>
+          </ul>
+          <div class="project-foot">
+            <span data-lang="en">Console App</span><span data-lang="ar">تطبيق سطر أوامر</span>
+            <span data-lang="en">Generic Programming</span><span data-lang="ar">برمجة عامة</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-top">
+            <h3 data-lang="en">Library Management System</h3>
+            <h3 data-lang="ar">نظام إدارة المكتبة</h3>
+            <span class="project-tag">C#</span>
+          </div>
+          <ul class="project-list">
+            <li data-lang="en">Built a console-based library management system using C#</li>
+            <li data-lang="ar">بناء نظام لإدارة المكتبة يعمل عبر سطر الأوامر باستخدام لغة #C</li>
+            <li data-lang="en">Implemented book management, borrowing, returning, and late-report functionality</li>
+            <li data-lang="ar">تنفيذ إدارة الكتب، والاستعارة، والإرجاع، وتقارير التأخير</li>
+            <li data-lang="en">Applied object-oriented programming and collection-based data management</li>
+            <li data-lang="ar">تطبيق البرمجة الكائنية التوجه وإدارة البيانات القائمة على المجموعات</li>
+          </ul>
+          <div class="project-foot">
+            <span data-lang="en">Console App</span><span data-lang="ar">تطبيق سطر أوامر</span>
+            <span>OOP</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" data-lang="en">04 — Education &amp; Training</span>
+        <span class="kicker" data-lang="ar">04 — التعليم والتدريب</span>
+        <h2 data-lang="en">Academic foundation, hands-on training</h2>
+        <h2 data-lang="ar">أساس أكاديمي وتدريب عملي</h2>
+      </div>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+          </div>
+          <div>
+            <h3 data-lang="en">B.Sc. Computer Science</h3>
+            <h3 data-lang="ar">بكالوريوس علوم الحاسب</h3>
+            <p data-lang="en">Faculty of Computer and Information Sciences</p>
+            <p data-lang="ar">كلية الحاسبات والمعلومات</p>
+            <p class="edu-place" data-lang="en">Ain Shams University — Cairo, Egypt</p>
+            <p class="edu-place" data-lang="ar">جامعة عين شمس — القاهرة، مصر</p>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          </div>
+          <div>
+            <h3 data-lang="en">C# Bootcamp</h3>
+            <h3 data-lang="ar">دورة C# التأهيلية</h3>
+            <p data-lang="en">Job Ready Skills for .NET Development</p>
+            <p data-lang="ar">لتأهيل سوق العمل في تطوير .NET</p>
+            <p class="edu-place">Udemy</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="activities">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" data-lang="en">05 — Activities</span>
+        <span class="kicker" data-lang="ar">05 — الأنشطة</span>
+        <h2 data-lang="en">Involvement outside the classroom</h2>
+        <h2 data-lang="ar">مشاركات خارج قاعة الدراسة</h2>
+      </div>
+
+      <div class="activity-list">
+        <div class="activity-card">
+          <span class="role" data-lang="en">Public Relations</span>
+          <span class="role" data-lang="ar">العلاقات العامة</span>
+          <h3 data-lang="en">Robotech Student Activity</h3>
+          <h3 data-lang="ar">نشاط Robotech الطلابي</h3>
+        </div>
+        <div class="activity-card">
+          <span class="role" data-lang="en">Science &amp; Technology</span>
+          <span class="role" data-lang="ar">العلوم والتكنولوجيا</span>
+          <h3 data-lang="en">Student Activity Committee</h3>
+          <h3 data-lang="ar">لجنة الأنشطة الطلابية</h3>
+        </div>
+        <div class="activity-card">
+          <span class="role" data-lang="en">Member</span>
+          <span class="role" data-lang="ar">عضو</span>
+          <h3 data-lang="en">OSC Open Source Community</h3>
+          <h3 data-lang="ar">مجتمع المصادر المفتوحة OSC</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-inner">
+      <div>
+        <h2 data-lang="en">Let's talk</h2>
+        <h2 data-lang="ar">لنتحدث</h2>
+        <p class="contact-line" data-lang="en">
+          Interested in building scalable and maintainable applications using the .NET ecosystem.
+        </p>
+        <p class="contact-line" data-lang="ar">
+          مهتمة ببناء تطبيقات قابلة للتوسّع والصيانة ضمن منظومة .NET.
+        </p>
+      </div>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:rowidahany084@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+          <span data-lang="en">Email Me</span>
+          <span data-lang="ar">راسليني</span>
+        </a>
+        <a class="btn btn-ghost" href="Rowida-Hany-CV.pdf" download>
+          <span data-lang="en">Download CV</span>
+          <span data-lang="ar">تحميل السيرة</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span class="tag-mono" data-lang="en">© <span id="year"></span> Rowida Hany</span>
+    <span class="tag-mono" data-lang="ar">© <span id="yearAr"></span> روضة هاني</span>
+    <span class="tag-mono" data-lang="en">Built with the .NET ecosystem in mind</span>
+    <span class="tag-mono" data-lang="ar">صُممت بروح منظومة .NET</span>
+    <span style="display:flex;gap:1rem;">
+      <a href="https://www.linkedin.com/in/rowida-hany" target="_blank" rel="noopener noreferrer" style="color:var(--text-faint);">LinkedIn</a>
+      <a href="https://github.com/rowida084" target="_blank" rel="noopener noreferrer" style="color:var(--text-faint);">GitHub</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  const html = document.documentElement;
+
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+  });
+
+  // Language toggle
+  const langToggle = document.getElementById('langToggle');
+  langToggle.addEventListener('click', () => {
+    const next = html.getAttribute('lang') === 'en' ? 'ar' : 'en';
+    html.setAttribute('lang', next);
+    html.setAttribute('dir', next === 'ar' ? 'rtl' : 'ltr');
+  });
+
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const mobilePanel = document.getElementById('mobilePanel');
+  menuToggle.addEventListener('click', () => {
+    const open = mobilePanel.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  mobilePanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Year
+  const y = new Date().getFullYear();
+  document.getElementById('year').textContent = y;
+  document.getElementById('yearAr').textContent = y;
+</script>
+</body>
+</html>
